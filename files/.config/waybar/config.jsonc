@@ -1,0 +1,52 @@
+{
+	"layer": "bottom",
+	"position": "top",
+	"height": 20,
+	"spacing": 5,
+	"modules-left": ["hyprland/workspaces"],
+	"modules-center": ["hyprland/window"],
+	"modules-right": ["backlight", "pulseaudio", "battery", "clock", "custom/reboot", "custom/power"],
+	
+	"battery": {
+		"format": "{capacity}%{icon}",
+		"format-charging": "{capacity}%󰂄",
+		"format-icons": ["󰂃", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂"]
+	},
+
+	"backlight": {
+		"device": "intel-backlight",
+		"format": "{percent}%<span font_scale='1'> </span>{icon}",
+		"format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+
+	},
+
+	"clock": {
+		"format": "<span font_scale='1'>{:%H:%M}</span>",
+		"tooltip": false
+	},
+
+	"hyprland/workspaces": {
+		"format": "{icon}",
+		"on-scroll-up": "hyprctl dispatch workspace e+1",
+		"on-scroll-down": "hyprctl dispatch workspace e-1"
+	},
+	
+	"custom/power": {
+		"format": "",
+		"on-click": "systemctl poweroff"
+
+	},
+
+	"custom/reboot": {
+		"format": "",
+		"on-click": "systemctl reboot"
+	},
+
+  "pulseaudio": {
+   "format": "{volume}%<span font_scale='1'> </span>{icon}",
+   "format-muted": "",
+   "format-icons": ["", "", ""],
+   "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+  }
+
+}
