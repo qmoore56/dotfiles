@@ -7,18 +7,6 @@ export VISUAL="nvim"
         https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
 source ~/Repos/znap/znap.zsh
 
-#-------------------------------
-
-
-pokeman() {
-  print -z "clear; pokemon-colorscripts -r"
-  zle .accept-line
-}
-
-zle -N pokeman
-
-bindkey '' pokeman
-
 
 #------------------------------
 
@@ -37,9 +25,10 @@ alias fl='flatpak'
 
 
 alias v='nvim'
+alias sv='sudoedit'
 alias b='btop'
 alias mkd='mkdir'
-
+alias view='kitty +kitten icat'
 
 
 #------------------------------
