@@ -1,0 +1,7 @@
+shell zsh
+
+font_family	 DejaVu Sans Mono
+font_features    DejaVuSansMono-Bront +dlig
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
