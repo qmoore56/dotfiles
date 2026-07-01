@@ -1,5 +1,6 @@
 export EDITOR="nvim"
 export VISUAL="nvim"
+export PAGER="moor"
 #------------------------------
 
 [[ -r ~/Repos/znap/znap.zsh ]] ||

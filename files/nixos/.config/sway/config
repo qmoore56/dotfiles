@@ -1,24 +1,48 @@
 set $mod Mod4
-
 set $left h
 set $down j
 set $up k
 set $right l
-
 set $term kitty
-set $menu wmenu-run -S 660066 -f 14 -N 000000cc
+set $menu rofi -show drun
 
-bindsym $mod+Return exec $term
+bindsym $mod+w exec $term
 bindsym $mod+d exec $menu
-bindsym $mod+s exec firefox
+bindsym $mod+q exec firefox
 
 bindsym $mod+Shift+q kill
-
 floating_modifier $mod normal
-
-
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+a layout tabbed
+bindsym $mod+s layout toggle split
+bindsym $mod+f fullscreen
+
+bindsym Print exec grim
+
+bindsym $mod+space floating toggle
+bindsym $mod+Shift+space focus mode_toggle
+bindsym $mod+p focus parent
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioPause exec playerctl play-pause
+bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioStop exec playerctl stop
+
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
@@ -63,70 +87,44 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
-bindsym $mod+b splith
-bindsym $mod+v splitv
-
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-bindsym $mod+f fullscreen
-
-
-bindsym $mod+Shift+space floating toggle
-
-
-bindsym $mod+space focus mode_toggle
-
-
-bindsym $mod+a focus parent
-
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
-
-mode "resize" {
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
-    
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
-
-bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
-
-bindsym --locked XF86AudioPlay exec playerctl play-pause
-bindsym --locked XF86AudioPause exec playerctl play-pause
-bindsym --locked XF86AudioPrev exec playerctl previous
-bindsym --locked XF86AudioNext exec playerctl next
-bindsym --locked XF86AudioStop exec playerctl stop
-
-bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-
-bindsym Print exec grim
-
 bar {
   swaybar_command waybar
 }
 
-output * bg ~/wallpapers/dark.png fill
+# Left - AOC
+output HDMI-A-1 {
+    mode 1920x1080@144Hz
+    pos 0 0
+    scale 1
+}
+
+# Middle - ASUS
+output DP-2 {
+    mode 1920x1080@164.917Hz
+    pos 1920 0
+    scale 1
+}
+
+# Right - Dell
+output DP-1 {
+    mode 1920x1080@60Hz
+    pos 3840 0
+    scale 1
+}
+
+exec_always wpaperd
+
+# Optional: pin workspaces
+workspace 3 output HDMI-A-1
+workspace 2 output DP-2
+workspace 1 output DP-1
 
 client.focused          #660066 #292929cc #ffffff #660066 #660066
-client.unfocused        #101010cc #101010cc #919191 #444444 #444444
+client.unfocused        #101010cc #101010cc #919191 #444444 #44444400
+client.focused_inactive #101010cc #101010cc #919191 #444444 #44444400
 client.urgent           #f38ba8 #292929cc #ffffff #f38ba8 #f38ba8
 client.placeholder      #292929 #292929cc #ffffff #292929 #292929
 
+default_orientation horizontal
 
 include /etc/sway/config.d/*

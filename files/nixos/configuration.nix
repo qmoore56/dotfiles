@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports =
+ imports =
     [
       ./hardware-configuration.nix
     ];
@@ -12,11 +12,14 @@
   
   nixpkgs.config = {allowUnfree = true; };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   networking.hostName = "nixos"; 
 
   networking.networkmanager.enable = true;
+  networking.wireguard.enable = true;
+
+  security.sudo.wheelNeedsPassword = false;
 
   time.timeZone = "America/Los_Angeles";
 
@@ -40,33 +43,58 @@
     variant = "";
   };
 
+  services.greetd = {
+  enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd sway";
+        user = "greeter";
+      };
+    };
+  };
 
-    fonts.packages = with pkgs; [
-      nerd-fonts.intone-mono
-    ];
- 
+  fonts.packages = with pkgs; [
+    nerd-fonts.intone-mono
+  ];
 
-  users.users."quiche" = {
+  hardware.graphics = {
+  enable = true;
+  enable32Bit = true;
+  };
+
+
+  users.users."quasar" = {
     isNormalUser = true;
-    description = "quiche";
+    description = "qmoore56";
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    packages = with pkgs; [
+
+    ];
   };
+
 
   programs.zsh.enable = true;
   programs.starship.enable = true;
   programs.neovim.enable = true;
-  programs.steam.enable = true;
+
+  services.flatpak.enable = true;
+  services.mullvad-vpn.enable = true;
 
   environment.variables.EDITOR = "nvim";
   environment.variables.VISUAL = "nvim";
+  environment.variables.PAGER = "moor";
+
+
+
+  programs.steam = {
+      enable = true;
+  };
 
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
   };
-
 
   environment.systemPackages = with pkgs; [
      neovim
@@ -84,8 +112,20 @@
      waybar
      pavucontrol
      networkmanager
+     protonup-qt
+     wpaperd
+     gcc
+     gnumake
+     gimp
+     btop
+     rofi
      flatpak
-     rofi 
+     gamemode
+     tuigreet
+     mesa
+     moor
+     vulkan-tools
+     crosspipe
      fastfetch #larp
   ];
 
