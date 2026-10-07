@@ -1,0 +1,2 @@
+set hidden true
+map D $rm -rf $fx

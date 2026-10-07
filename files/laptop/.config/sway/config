@@ -1,0 +1,116 @@
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term kitty
+set $menu env XDG_DATA_DIRS=/home/quake/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share rofi -show drun
+
+bindsym $mod+w exec $term
+bindsym $mod+d exec $menu
+bindsym $mod+q exec firefox
+
+bindsym $mod+Shift+q kill
+floating_modifier $mod normal
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+a layout tabbed
+bindsym $mod+s layout toggle split
+bindsym $mod+f fullscreen
+
+bindsym Print exec mkdir -p ~/screenshots && grim ~/screenshots/"$(date +%Y-%m-%d_%H-%M-%S)".png
+bindsym Shift+Print exec mkdir -p ~/screenshots && grim -g "$(slurp)" ~/screenshots/"$(date +%Y-%m-%d_%H-%M-%S)".png
+
+bindsym $mod+space floating toggle
+bindsym $mod+Shift+space focus mode_toggle
+bindsym $mod+p focus parent
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioPause exec playerctl play-pause
+bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioStop exec playerctl stop
+
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+bar {
+  swaybar_command waybar
+}
+
+exec_always ~/.config/sway/wallpaper.sh
+bindsym $mod+Shift+x exec wpaperctl next
+
+seat * xcursor_theme Colloid-dark-cursors 24
+
+font pango:IntoneMono Nerd Font Medium 9
+
+client.focused          #660066 #292929cc #ffffff #660066 #660066
+client.unfocused        #101010cc #101010cc #919191 #444444 #44444400
+client.focused_inactive #101010cc #101010cc #919191 #444444 #44444400
+client.urgent           #f38ba8 #292929cc #ffffff #f38ba8 #f38ba8
+client.placeholder      #292929 #292929cc #ffffff #292929 #292929
+
+default_orientation horizontal
+
+include /etc/sway/config.d/*
+
+# Idle: suspend after 5 min. Waybar's idle inhibitor (and fullscreen windows) block it.
+exec_always "pkill -x swayidle; swayidle -w \
+    timeout 300 'systemctl suspend'"
+for_window [app_id=".*"] inhibit_idle fullscreen
+for_window [class=".*"] inhibit_idle fullscreen

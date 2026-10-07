@@ -1,0 +1,6 @@
+[terminal]
+vt = 1
+
+[default_session]
+command = "tuigreet --time --user quake --remember-session --asterisks --sessions /usr/share/wayland-sessions --cmd sway"
+user = "greeter"

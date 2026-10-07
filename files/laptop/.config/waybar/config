@@ -1,0 +1,127 @@
+{
+    "modules-left": ["custom/launcher", "sway/workspaces", "sway/mode", "sway/scratchpad"],
+    "modules-center": ["custom/media"],
+    "modules-right": ["pulseaudio", "battery", "backlight", "clock", "idle_inhibitor", "tray"],
+
+    "custom/launcher": {
+        "format": " 󰣇 ",
+        "on-click": "rofi -show drun"
+    },
+
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+
+    "custom/media": {
+        "format": "{}",
+        "return-type": "json",
+        "tooltip": false,
+        "max-length": 60,
+        "escape": false,
+        "exec": "$HOME/.config/waybar/media.sh",
+        "restart-interval": 2,
+        "on-click": "playerctl -p playerctld play-pause",
+        "on-click-right": "playerctl -p playerctld next",
+        "on-click-middle": "playerctl -p playerctld previous"
+    },
+
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click": "pavucontrol"
+    },
+
+    "battery": {
+        "interval": 10,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{capacity}% <span font_family='IntoneMono Nerd Font Mono' size='7.6pt' rise='-1pt'>{icon}</span>",
+        "format-charging": "{capacity}% <span font_family='IntoneMono Nerd Font Mono' size='10pt' rise='-1pt'>{icon}</span>",
+        "format-plugged": "{capacity}% <span font_family='IntoneMono Nerd Font Mono' size='10pt' rise='-1pt'>󰚥</span>",
+        "format-icons": {
+            "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+            "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        },
+        "tooltip-format": "{timeTo} ({power:.1f} W)"
+    },
+
+    "backlight": {
+        "format": "{percent}% {icon} ",
+        "tooltip": false,
+        "format-icons": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    },
+
+    "clock": {
+        "tooltip": false,
+        "format": "{:%a %b %d  |  %I:%M %p}",
+        "format-alt": "{:%m-%d-%Y}"
+    },
+
+    "tray": {
+        "icon-size": 15,
+        "spacing": 10
+    },
+
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon} ",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+
+    "memory": {
+        "format": "{}% "
+    },
+
+    "temperature": {
+        "thermal-zone": 2,
+        "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
+        "critical-threshold": 85,
+        "format-critical": "{temperatureC}°C",
+        "format": "{temperatureC}°C"
+    },
+
+    "network": {
+        "format-wifi": " ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "N/A ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+
+    "battery#bat2": {
+        "bat": "BAT2"
+    }
+}
