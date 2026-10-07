@@ -1,6 +1,6 @@
 {
     "modules-left": ["custom/launcher", "sway/workspaces", "sway/mode", "sway/scratchpad"],
-    "modules-center": ["custom/media"],
+    "modules-center": ["cpu", "memory", "image#media", "custom/media", "disk", "network"],
     "modules-right": ["pulseaudio", "battery", "backlight", "clock", "idle_inhibitor", "tray"],
 
     "custom/launcher": {
@@ -18,6 +18,15 @@
         "format-icons": ["", ""],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
+    },
+
+    "image#media": {
+        "exec": "cat $HOME/.cache/waybar-media/current 2>/dev/null",
+        "size": 16,
+        "signal": 8,
+        "interval": 3600,
+        "tooltip": false,
+        "on-click": "playerctl -p playerctld play-pause"
     },
 
     "custom/media": {
@@ -110,6 +119,13 @@
         "critical-threshold": 85,
         "format-critical": "{temperatureC}°C",
         "format": "{temperatureC}°C"
+    },
+
+    "disk": {
+        "path": "/",
+        "interval": 30,
+        "format": "{percentage_used}% 󰋊",
+        "tooltip-format": "{used} used of {total} ({path})"
     },
 
     "network": {

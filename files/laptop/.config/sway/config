@@ -114,3 +114,6 @@ exec_always "pkill -x swayidle; swayidle -w \
     timeout 300 'systemctl suspend'"
 for_window [app_id=".*"] inhibit_idle fullscreen
 for_window [class=".*"] inhibit_idle fullscreen
+
+# Hyprland-style placement: new windows open on the side of the focused window the cursor is nearest
+exec_always "pkill -f '^python3 .*/[c]ursor-split'; exec ~/.config/sway/cursor-split.py"

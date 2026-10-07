@@ -181,6 +181,15 @@ button:hover {
 
 #custom-media {
     padding: 0 10px;
+    /* acts as the spacers around the media player; the module (and this margin)
+       is hidden entirely when media.sh outputs empty text */
+    margin: 0 24px 0 0;
+}
+
+/* favicon / player icon shown left of the media text */
+#image.media {
+    margin-left: 24px;
+    padding-left: 10px;
 }
 
 #custom-media.paused {
@@ -189,20 +198,6 @@ button:hover {
 
 label:focus {
     background-color: #ffffff;
-}
-
-#cpu {
-    background-color: #2ecc71;
-    color: #ffffff;
-    border-radius: 2px;
-}
-
-#memory {
-    background-color: #9b59b6;
-}
-
-#disk {
-    background-color: #964B00;
 }
 
 #backlight {
