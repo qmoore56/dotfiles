@@ -1,0 +1,41 @@
+@import "/usr/share/rofi/themes/dmenu.rasi"
+
+* {
+    font: "IntoneMono NF 12";
+}
+
+window {
+    height:   28px;
+    padding:  0px;
+    border:   1px;
+    border-color: #660066;
+    y-offset: -28px;
+}
+
+horibox {
+    padding:  0px 6px;
+    spacing:  6px;
+    children: [ entry, listview ];
+}
+
+entry, element, element-text {
+    vertical-align: 0.5;
+}
+
+element {
+    padding: 0px 4px;
+    border:  1px;
+    border-color: transparent;
+    border-radius: 4px;
+    text-color: #660066;
+}
+
+element selected {
+    background-color: #660066;
+    text-color:       White;
+    border-color:     #919191;
+}
+
+element-text {
+    horizontal-align: 0.5;
+}
